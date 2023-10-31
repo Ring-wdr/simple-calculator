@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import classnames from "classnames";
-import { Button } from "..";
+import Button from "@mui/material/Button";
 import {
   TypeNotNeedPayloadCalculate,
   calculateReducer,
@@ -65,6 +65,7 @@ export default function Calculator({
       {buttonsData.map(({ name, value, colspan, rowspan }, idx) => (
         <Button
           key={idx}
+          variant="outlined"
           className={classnames(
             { [styles.colspan]: colspan },
             { [styles.rowspan]: rowspan }

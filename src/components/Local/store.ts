@@ -1,6 +1,7 @@
 type TodoType = {
   id: number;
   text: string;
+  checked?: boolean;
 };
 type Listener = () => void;
 

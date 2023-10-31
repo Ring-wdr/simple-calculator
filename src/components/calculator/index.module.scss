@@ -15,5 +15,8 @@
   }
   .output {
     grid-column: 1 / -1;
+    display: flex;
+    justify-content: end;
+    align-items: center;
   }
 }

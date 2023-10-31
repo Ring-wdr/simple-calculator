@@ -1,9 +1,24 @@
 import { useState } from "react";
-import "./App.css";
 import Calculator, { CalculatorProps } from "./components/calculator";
-import Portal from "./components/portal";
-import { Button } from "./components";
 import Local from "./components/Local";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import "./App.css";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.gray",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+} as const;
 
 const buttonContents = [
   { name: "AC", value: "REFRESH", colspan: 2 },
@@ -29,6 +44,7 @@ const buttonContents = [
 function App() {
   const [err, setErr] = useState<Error | null>(null);
   const [tab, setTab] = useState<"calculator" | "store">("calculator");
+  const modalClose = () => setErr(null);
   return (
     <div className="content">
       <div>{tab.toUpperCase()}</div>
@@ -44,20 +60,34 @@ function App() {
         value={"store"}
         onChange={() => setTab("store")}
       />
-      {tab === "calculator" ? (
-        <Calculator buttonsData={buttonContents} dispatchError={setErr} />
-      ) : (
-        <Local />
-      )}
-      {err && (
-        <Portal>
-          <div>
-            {err?.message}
+      <div className="f-box">
+        {tab === "calculator" ? (
+          <Calculator buttonsData={buttonContents} dispatchError={setErr} />
+        ) : (
+          <Local />
+        )}
+      </div>
+
+      <Modal
+        open={!!err}
+        onClose={modalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
             에러가 났다고 하네요~
-            <Button onClick={() => setErr(null)}>확인</Button>
-          </div>
-        </Portal>
-      )}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {err?.message}
+          </Typography>
+          <Grid container justifyContent="flex-end">
+            <Button variant="contained" onClick={() => setErr(null)}>
+              확인
+            </Button>
+          </Grid>
+        </Box>
+      </Modal>
     </div>
   );
 }

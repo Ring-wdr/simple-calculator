@@ -73,13 +73,14 @@ export const calculateReducer = (
             operator: operator.slice(0, -1),
             current: operator[operator.length - 1],
           };
-
         return {
           ...state,
           numbers: numbers.slice(0, -1),
           current: String(numbers[numbers.length - 1]),
         };
       }
+      if (!numbers.length && !operator.length && current.length === 1)
+        return { ...initState };
       return {
         ...state,
         current: state.current.slice(0, -1),
