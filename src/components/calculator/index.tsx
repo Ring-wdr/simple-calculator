@@ -7,7 +7,7 @@ import {
   initState,
   operators,
 } from "./reducer";
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 
 export type CalculatorProps = {
   buttonsData: {

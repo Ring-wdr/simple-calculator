@@ -1,0 +1,19 @@
+.calculator-grid {
+  display: grid;
+  margin-top: 2rem;
+  grid-template-columns: repeat(4, 6rem);
+  grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
+  > button:hover,
+  > button:focus {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .colspan[data-colspan="2"] {
+    grid-column: span 2;
+  }
+  .colspan[data-colspan="3"] {
+    grid-column: span 3;
+  }
+  .output {
+    grid-column: 1 / -1;
+  }
+}
