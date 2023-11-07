@@ -17,8 +17,7 @@ export type CalculatorProps = {
     rowspan?: number;
   }[];
   dispatchError?: React.Dispatch<React.SetStateAction<Error | null>>;
-} & React.PropsWithChildren &
-  React.HTMLAttributes<HTMLDivElement>;
+} & React.PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>;
 
 export default function Calculator({
   buttonsData,

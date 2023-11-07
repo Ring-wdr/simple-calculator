@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import "./App.css";
+import Form from "./components/Form";
 
 const style = {
   position: "absolute",
@@ -41,30 +42,33 @@ const buttonContents = [
   { name: "=", value: "EXECUTE", colspan: 2 },
 ] satisfies CalculatorProps["buttonsData"];
 
+const tabList = ["calculator", "store", "form"] as const;
+type TabState = (typeof tabList)[number];
+
 function App() {
   const [err, setErr] = useState<Error | null>(null);
-  const [tab, setTab] = useState<"calculator" | "store">("calculator");
+  const [tab, setTab] = useState<TabState>("calculator");
   const modalClose = () => setErr(null);
+
   return (
     <div className="content">
       <div>{tab.toUpperCase()}</div>
-      <input
-        type="radio"
-        name="tab"
-        value={"calculator"}
-        onChange={() => setTab("calculator")}
-      />
-      <input
-        type="radio"
-        name="tab"
-        value={"store"}
-        onChange={() => setTab("store")}
-      />
+      {tabList.map((tab, idx) => (
+        <input
+          key={idx}
+          type="radio"
+          name="tab"
+          value={tab}
+          onChange={() => setTab(tab)}
+        />
+      ))}
       <div className="f-box">
         {tab === "calculator" ? (
           <Calculator buttonsData={buttonContents} dispatchError={setErr} />
-        ) : (
+        ) : tab === "store" ? (
           <Local />
+        ) : (
+          <Form />
         )}
       </div>
 
@@ -82,7 +86,7 @@ function App() {
             {err?.message}
           </Typography>
           <Grid container justifyContent="flex-end">
-            <Button variant="contained" onClick={() => setErr(null)}>
+            <Button variant="contained" onClick={modalClose}>
               확인
             </Button>
           </Grid>
