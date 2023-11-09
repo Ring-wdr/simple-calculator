@@ -1,13 +1,9 @@
 import { useState } from "react";
+import { Grid, Button, Box, Modal, Typography } from "@mui/material";
 import Calculator, { CalculatorProps } from "./components/calculator";
 import Local from "./components/Local";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import "./App.css";
 import Form from "./components/Form";
+import "./App.css";
 
 const style = {
   position: "absolute",
