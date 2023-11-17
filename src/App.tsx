@@ -4,6 +4,7 @@ import Calculator, { CalculatorProps } from "./components/calculator";
 import Local from "./components/Local";
 import Form from "./components/Form";
 import "./App.css";
+import MouseShow from "./components/MouseShow";
 
 const style = {
   position: "absolute",
@@ -38,7 +39,7 @@ const buttonContents = [
   { name: "=", value: "EXECUTE", colspan: 2 },
 ] satisfies CalculatorProps["buttonsData"];
 
-const tabList = ["calculator", "store", "form"] as const;
+const tabList = ["calculator", "store", "form", "mouse"] as const;
 type TabState = (typeof tabList)[number];
 
 function App() {
@@ -63,8 +64,10 @@ function App() {
           <Calculator buttonsData={buttonContents} dispatchError={setErr} />
         ) : tab === "store" ? (
           <Local />
-        ) : (
+        ) : tab === "form" ? (
           <Form />
+        ) : (
+          <MouseShow />
         )}
       </div>
 
