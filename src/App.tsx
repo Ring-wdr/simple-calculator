@@ -44,27 +44,28 @@ type TabState = (typeof tabList)[number];
 
 function App() {
   const [err, setErr] = useState<Error | null>(null);
-  const [tab, setTab] = useState<TabState>("calculator");
+  const [currentTab, setTab] = useState<TabState>("calculator");
   const modalClose = () => setErr(null);
 
   return (
     <div className="content">
-      <div>{tab.toUpperCase()}</div>
+      <div>{currentTab.toUpperCase()}</div>
       {tabList.map((tab, idx) => (
         <input
           key={idx}
           type="radio"
           name="tab"
           value={tab}
+          checked={tab === currentTab}
           onChange={() => setTab(tab)}
         />
       ))}
       <div className="f-box">
-        {tab === "calculator" ? (
+        {currentTab === "calculator" ? (
           <Calculator buttonsData={buttonContents} dispatchError={setErr} />
-        ) : tab === "store" ? (
+        ) : currentTab === "store" ? (
           <Local />
-        ) : tab === "form" ? (
+        ) : currentTab === "form" ? (
           <Form />
         ) : (
           <MouseShow />
